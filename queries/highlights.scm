@@ -67,7 +67,7 @@
 
 (macro_invocation
   macro: (identifier) @function.macro
-  "!" @function.macro)
+  "!" @function.macro.exclamation)
 
 ; Function definitions
 
@@ -83,25 +83,25 @@
 (line_comment) @comment
 (block_comment) @comment
 
-"(" @punctuation.bracket
-")" @punctuation.bracket
+"(" @punctuation.parenthesis
+")" @punctuation.parenthesis
 "[" @punctuation.bracket
 "]" @punctuation.bracket
-"{" @punctuation.bracket
-"}" @punctuation.bracket
+"{" @punctuation.brace
+"}" @punctuation.brace
 
 (type_arguments
-  "<" @punctuation.bracket
-  ">" @punctuation.bracket)
+  "<" @punctuation.angle
+  ">" @punctuation.angle)
 (type_parameters
-  "<" @punctuation.bracket
-  ">" @punctuation.bracket)
+  "<" @punctuation.angle
+  ">" @punctuation.angle)
 
-"::" @punctuation.delimiter
-":" @punctuation.delimiter
-"." @punctuation.delimiter
-"," @punctuation.delimiter
-";" @punctuation.delimiter
+"::" @punctuation.double_colon
+":" @punctuation.colon
+"." @punctuation.dot
+"," @punctuation.comma
+";" @punctuation.semicolon
 
 (parameter (identifier) @variable.parameter)
 
@@ -143,26 +143,26 @@
 "while" @keyword
 (crate) @keyword
 (mutable_specifier) @keyword
-(use_list (self) @keyword)
-(scoped_use_list (self) @keyword)
-(scoped_identifier (self) @keyword)
 (super) @keyword
 
-(self) @variable.builtin
+(self) @variable.builtin.self
+(use_list (self) @variable.builtin.self)
+(scoped_use_list (self) @variable.builtin.self)
+(scoped_identifier (self) @variable.builtin.self)
 
-(char_literal) @string
-(string_literal) @string
-(raw_string_literal) @string
+(char_literal) @string.char
+(string_literal) @string.string
+(raw_string_literal) @string.raw
 
-(boolean_literal) @constant.builtin
-(integer_literal) @constant.builtin
-(float_literal) @constant.builtin
+(boolean_literal) @constant.builtin.boolean
+(integer_literal) @constant.builtin.integer
+(float_literal) @constant.builtin.float
 
 (escape_sequence) @escape
 
 (attribute_item) @attribute
-(inner_attribute_item) @attribute
+(inner_attribute_item) @attribute.inner
 
-"*" @operator
-"&" @operator
-"'" @operator
+"*" @operator.asterisk
+"&" @operator.ampersand
+"'" @punctuation.quote
