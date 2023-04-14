@@ -20,18 +20,29 @@
     name: (identifier) @type))
  (#match? @type "^[A-Z]"))
 
-(use_declaration
-    argument: (identifier) @module)
+; Modules in paths
+; Highlight the module in scoped identifiers with just two elements (e.g. `use std::fmt`);
+(scoped_identifier
+    path: (identifier) @module)
+; Highlight the module in scoped identifiers with more than two elements
+(scoped_identifier
+    path: (scoped_identifier) @module)
+; Highlight paths that import a module rather than a type
 ((use_declaration
     argument: (scoped_identifier
         name: (identifier) @module))
     (#match? @module "^[a-z]"))
-(scoped_identifier
-    path: (identifier) @module)
-(scoped_identifier
-    path: (scoped_identifier) @module)
+; Highlight the module in paths before a list of imports
 (scoped_use_list
     path: (identifier) @module)
+; Highlight modules in a list of imports
+((use_list
+    (identifier) @module)
+    (#match? @module "^[a-z]"))
+; Highlight module in type paths
+((scoped_type_identifier
+  path: (identifier) @module)
+ (#match? @module "^[a-z]"))
 
 ; Assume other uppercase names are enum constructors
 ((identifier) @constructor
