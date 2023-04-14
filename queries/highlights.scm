@@ -20,6 +20,19 @@
     name: (identifier) @type))
  (#match? @type "^[A-Z]"))
 
+(use_declaration
+    argument: (identifier) @module)
+((use_declaration
+    argument: (scoped_identifier
+        name: (identifier) @module))
+    (#match? @module "^[a-z]"))
+(scoped_identifier
+    path: (identifier) @module)
+(scoped_identifier
+    path: (scoped_identifier) @module)
+(scoped_use_list
+    path: (identifier) @module)
+
 ; Assume other uppercase names are enum constructors
 ((identifier) @constructor
  (#match? @constructor "^[A-Z]"))
