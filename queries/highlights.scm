@@ -94,29 +94,54 @@
 (line_comment) @comment
 (block_comment) @comment
 
-"(" @punctuation.parenthesis
-")" @punctuation.parenthesis
-"[" @punctuation.bracket
-"]" @punctuation.bracket
-"{" @punctuation.brace
-"}" @punctuation.brace
+(attribute_item
+    (
+        "#" @attribute.numbersign
+        "[" @attribute.bracket.opening
+        (attribute)+ @attribute.item
+        "]" @attribute.bracket.closing
+    )
+)
+(inner_attribute_item) @attribute.inner
+
+(parameter (identifier) @variable.parameter)
+
+(lifetime (identifier) @label.lifetime)
+
+(self) @variable.builtin.self
+(use_list (self) @variable.builtin.self)
+(scoped_use_list (self) @variable.builtin.self)
+(scoped_identifier (self) @variable.builtin.self)
+
+(char_literal) @string.char
+(string_literal) @string.string
+(raw_string_literal) @string.raw
+
+(boolean_literal) @constant.builtin.boolean
+(integer_literal) @constant.builtin.integer
+(float_literal) @constant.builtin.float
+
+(escape_sequence) @escape
+
+"(" @punctuation.parenthesis.opening
+")" @punctuation.parenthesis.closing
+"[" @punctuation.bracket.opening
+"]" @punctuation.bracket.closing
+"{" @punctuation.brace.opening
+"}" @punctuation.brace.closing
 
 (type_arguments
-  "<" @punctuation.angle
-  ">" @punctuation.angle)
+  "<" @punctuation.angle.opening
+  ">" @punctuation.angle.closing)
 (type_parameters
-  "<" @punctuation.angle
-  ">" @punctuation.angle)
+  "<" @punctuation.angle.opening
+  ">" @punctuation.angle.closing)
 
 "::" @punctuation.double_colon
 ":" @punctuation.colon
 "." @punctuation.dot
 "," @punctuation.comma
 ";" @punctuation.semicolon
-
-(parameter (identifier) @variable.parameter)
-
-(lifetime (identifier) @label)
 
 "as" @keyword
 "async" @keyword
@@ -155,24 +180,6 @@
 (crate) @keyword
 (mutable_specifier) @keyword
 (super) @keyword
-
-(self) @variable.builtin.self
-(use_list (self) @variable.builtin.self)
-(scoped_use_list (self) @variable.builtin.self)
-(scoped_identifier (self) @variable.builtin.self)
-
-(char_literal) @string.char
-(string_literal) @string.string
-(raw_string_literal) @string.raw
-
-(boolean_literal) @constant.builtin.boolean
-(integer_literal) @constant.builtin.integer
-(float_literal) @constant.builtin.float
-
-(escape_sequence) @escape
-
-(attribute_item) @attribute
-(inner_attribute_item) @attribute.inner
 
 "*" @operator.asterisk
 "&" @operator.ampersand
