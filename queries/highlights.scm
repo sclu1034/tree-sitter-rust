@@ -122,6 +122,8 @@
 (parameter (identifier) @variable.parameter)
 (closure_parameters (identifier) @variable.parameter)
 (closure_parameters (tuple_pattern (identifier) @variable.parameter))
+(closure_parameters (struct_pattern (field_pattern pattern: (identifier) @variable.parameter)))
+(closure_parameters (struct_pattern (field_pattern (shorthand_field_identifier) @variable.parameter)))
 
 (lifetime (identifier) @label.lifetime)
 
