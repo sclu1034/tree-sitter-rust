@@ -9,6 +9,9 @@
   path: (identifier) @type)
  (#match? @type "^[A-Z]"))
 ((scoped_identifier
+  name: (identifier) @type)
+ (#match? @type "^[A-Z]"))
+((scoped_identifier
   path: (scoped_identifier
     name: (identifier) @type))
  (#match? @type "^[A-Z]"))
@@ -33,8 +36,12 @@
         name: (identifier) @module))
     (#match? @module "^[a-z]"))
 ; Highlight the module in paths before a list of imports
-(scoped_use_list
+((scoped_use_list
+    path: (scoped_identifier (identifier) @module))
+    (#match? @module "^[a-z]"))
+((scoped_use_list
     path: (identifier) @module)
+    (#match? @module "^[a-z]"))
 ; Highlight modules in a list of imports
 ((use_list
     (identifier) @module)
