@@ -43,6 +43,10 @@
 ((scoped_type_identifier
   path: (identifier) @module)
  (#match? @module "^[a-z]"))
+; Highlight modules in wildcard paths
+(use_wildcard (identifier) @module)
+((use_wildcard (scoped_identifier (identifier) @module))
+    (#match? @module "^[a-z]"))
 
 ; Assume other uppercase names are enum constructors
 ((identifier) @constructor
@@ -177,6 +181,8 @@
 (match_arm "=>" @operator.arm)
 
 (closure_parameters "|" @operator.closure_parameters)
+
+(use_wildcard "*" @operator.wildcard)
 
 "'" @punctuation.quote
 
