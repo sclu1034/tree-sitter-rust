@@ -107,6 +107,7 @@
 (inner_attribute_item) @attribute.inner
 
 (parameter (identifier) @variable.parameter)
+(closure_parameters (identifier) @variable.parameter)
 
 (lifetime (identifier) @label.lifetime)
 
@@ -173,6 +174,8 @@
 
 (function_item "->" @operator.return)
 (match_arm "=>" @operator.arm)
+
+(closure_parameters "|" @operator.closure_parameters)
 
 "'" @punctuation.quote
 
