@@ -5,11 +5,7 @@
  (#match? @constant "^[A-Z][A-Z\\d_]+$"))
 
 ; Assume that uppercase names in paths are types
-((scoped_identifier
-  path: (identifier) @type)
- (#match? @type "^[A-Z]"))
-((scoped_identifier
-  name: (identifier) @type)
+((scoped_identifier (identifier) @type)
  (#match? @type "^[A-Z]"))
 ((scoped_identifier
   path: (scoped_identifier
@@ -56,6 +52,9 @@
     (#match? @module "^[a-z]"))
 
 ; Assume other uppercase names are enum constructors
+; Exclude it from macro token trees first, though, since we can't do much in those,
+; and it'd be weird if only this specific rule did work in macros.
+(token_tree (identifier) @variable)
 ((identifier) @constructor
  (#match? @constructor "^[A-Z]"))
 
@@ -250,4 +249,5 @@
 "while" @keyword
 (crate) @keyword
 (mutable_specifier) @keyword
+(visibility_modifier) @keyword
 (super) @keyword
