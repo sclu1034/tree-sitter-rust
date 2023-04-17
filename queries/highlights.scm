@@ -18,6 +18,9 @@
   path: (scoped_identifier
     name: (identifier) @type))
  (#match? @type "^[A-Z]"))
+((attribute
+    arguments: (token_tree (identifier) @type))
+ (#match? @type "^[A-Z]"))
 
 ; Modules in paths
 ; Highlight the module in scoped identifiers with just two elements (e.g. `use std::fmt`);
