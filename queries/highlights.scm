@@ -161,6 +161,7 @@
 (binary_expression ">" @operator.comparison.greater)
 
 (assignment_expression "=" @operator.assignment.equals)
+(let_condition "=" @operator.assignment.equals)
 (compound_assignment_expr "+=" @operator.assignment.add)
 (compound_assignment_expr "-=" @operator.assignment.subtract)
 (compound_assignment_expr "*=" @operator.assignment.multiply)
