@@ -123,6 +123,57 @@
 
 (escape_sequence) @escape
 
+(binary_expression "*" @operator.math.multiply)
+(binary_expression "+" @operator.math.add)
+(binary_expression "-" @operator.math.subtract)
+(binary_expression "/" @operator.math.divide)
+(binary_expression "%" @operator.math.modulo)
+(unary_expression "-" @operator.math.subtract)
+
+(binary_expression "|" @operator.bitwise.or)
+(binary_expression "&" @operator.bitwise.and)
+(binary_expression "^" @operator.bitwise.xor)
+(binary_expression "<<" @operator.bitwise.left_shift)
+(binary_expression ">>" @operator.bitwise.right_shift)
+
+(binary_expression "&&" @operator.boolean.double_ampersand)
+(binary_expression "||" @operator.boolean.double_pipe)
+(unary_expression "!" @operator.boolean.not)
+
+(try_expression "?" @operator.try)
+
+(range_expression ".." @operator.range.range)
+(range_expression "..=" @operator.range.inclusive)
+
+(reference_type "&" @operator.ampersand)
+(self_parameter "&" @operator.ampersand)
+(reference_expression "&" @operator.ampersand)
+(unary_expression "*" @operator.dereference)
+
+(binary_expression "==" @operator.comparison.equals)
+(binary_expression "!=" @operator.comparison.not_equals)
+(binary_expression ">=" @operator.comparison.greater_or_equal)
+(binary_expression "<=" @operator.comparison.less_or_equal)
+(binary_expression "<" @operator.comparison.less)
+(binary_expression ">" @operator.comparison.greater)
+
+(assignment_expression "=" @operator.assignment.equals)
+(compound_assignment_expr "+=" @operator.assignment.add)
+(compound_assignment_expr "-=" @operator.assignment.subtract)
+(compound_assignment_expr "*=" @operator.assignment.multiply)
+(compound_assignment_expr "/=" @operator.assignment.divide)
+(compound_assignment_expr "%=" @operator.assignment.modulo)
+(compound_assignment_expr "&=" @operator.assignment.and)
+(compound_assignment_expr "|=" @operator.assignment.or)
+(compound_assignment_expr "^=" @operator.assignment.xor)
+(compound_assignment_expr "<<=" @operator.assignment.left_shift)
+(compound_assignment_expr ">>=" @operator.assignment.right_shift)
+
+(function_item "->" @operator.return)
+(match_arm "=>" @operator.arm)
+
+"'" @punctuation.quote
+
 "(" @punctuation.parenthesis.opening
 ")" @punctuation.parenthesis.closing
 "[" @punctuation.bracket.opening
@@ -140,6 +191,7 @@
 "::" @punctuation.double_colon
 ":" @punctuation.colon
 "." @punctuation.dot
+".." @punctuation.double_dot
 "," @punctuation.comma
 ";" @punctuation.semicolon
 
@@ -180,7 +232,3 @@
 (crate) @keyword
 (mutable_specifier) @keyword
 (super) @keyword
-
-"*" @operator.asterisk
-"&" @operator.ampersand
-"'" @punctuation.quote
