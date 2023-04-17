@@ -2,7 +2,7 @@
 
 ; Assume all-caps names are constants
 ((identifier) @constant
- (#match? @constant "^[A-Z][A-Z\\d_]+$'"))
+ (#match? @constant "^[A-Z][A-Z\\d_]+$"))
 
 ; Assume that uppercase names in paths are types
 ((scoped_identifier
@@ -87,6 +87,8 @@
 
 ; Other identifiers
 
+(const_item
+    name: (identifier) @constant)
 (type_identifier) @type
 (primitive_type) @type.builtin
 (field_identifier) @property
