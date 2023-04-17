@@ -121,6 +121,7 @@
 
 (parameter (identifier) @variable.parameter)
 (closure_parameters (identifier) @variable.parameter)
+(closure_parameters (tuple_pattern (identifier) @variable.parameter))
 
 (lifetime (identifier) @label.lifetime)
 
