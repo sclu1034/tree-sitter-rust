@@ -39,13 +39,23 @@ const primitive_types = numeric_types.concat(['bool', 'str', 'char'])
 module.exports = grammar({
   name: 'rust',
 
-  extras: $ => [/\s/, $.line_comment, $.block_comment],
+  extras: $ => [
+    /\s/,
+    $.line_comment,
+    $.block_comment,
+    $.line_doc_comment,
+    $.inner_line_doc_comment,
+    $.block_doc_comment,
+    $.inner_block_doc_comment,
+  ],
 
   externals: $ => [
     $._string_content,
     $.raw_string_literal,
     $.float_literal,
     $.block_comment,
+    $.block_doc_comment,
+    $.inner_block_doc_comment,
   ],
 
   supertypes: $ => [
@@ -1441,8 +1451,20 @@ module.exports = grammar({
 
     comment: $ => choice(
       $.line_comment,
-      $.block_comment
+      $.line_doc_comment,
+      $.inner_line_doc_comment,
+      $.block_comment,
+      $.block_doc_comment,
+      $.inner_block_doc_comment,
     ),
+
+    line_doc_comment: $ => token(seq(
+      '///', /[^/].*/
+    )),
+
+    inner_line_doc_comment: $ => token(seq(
+      '//!', /.*/
+    )),
 
     line_comment: $ => token(seq(
       '//', /.*/

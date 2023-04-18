@@ -4883,6 +4883,10 @@
     "named": true
   },
   {
+    "type": "block_doc_comment",
+    "named": true
+  },
+  {
     "type": "break",
     "named": false
   },
@@ -4971,6 +4975,14 @@
     "named": false
   },
   {
+    "type": "inner_block_doc_comment",
+    "named": true
+  },
+  {
+    "type": "inner_line_doc_comment",
+    "named": true
+  },
+  {
     "type": "integer_literal",
     "named": true
   },
@@ -4988,6 +5000,10 @@
   },
   {
     "type": "line_comment",
+    "named": true
+  },
+  {
+    "type": "line_doc_comment",
     "named": true
   },
   {

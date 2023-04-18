@@ -6,6 +6,8 @@ enum TokenType {
   RAW_STRING_LITERAL,
   FLOAT_LITERAL,
   BLOCK_COMMENT,
+  BLOCK_DOC_COMMENT,
+  INNER_BLOCK_DOC_COMMENT,
 };
 
 void *tree_sitter_rust_external_scanner_create() { return NULL; }
@@ -146,8 +148,31 @@ bool tree_sitter_rust_external_scanner_scan(void *payload, TSLexer *lexer,
     if (lexer->lookahead != '*') return false;
     advance(lexer);
 
+    int star_count = 1;
     bool after_star = false;
+    bool is_inner_doc = false;
+    // `/**/` is a regular block comment, but merely counting `*`s is not enough to distinguish that from
+    // a block doc comment
+    bool has_content = false;
+    // Block comments can be nested. We don't emit tokens for the inner ones, but we do need
+    // to keep track to count closing sequences.
     unsigned nesting_depth = 1;
+    for (;;) {
+      if (lexer->lookahead == '*') {
+        advance(lexer);
+        ++star_count;
+        after_star = true;
+      } else if (lexer->lookahead == '!') {
+        if (star_count == 1)
+          is_inner_doc = true;
+        after_star = false;
+        advance(lexer);
+        break;
+      } else {
+        break;
+      }
+    }
+
     for (;;) {
       switch (lexer->lookahead) {
         case '\0':
@@ -162,12 +187,18 @@ bool tree_sitter_rust_external_scanner_scan(void *payload, TSLexer *lexer,
             after_star = false;
             nesting_depth--;
             if (nesting_depth == 0) {
-              lexer->result_symbol = BLOCK_COMMENT;
+              if (is_inner_doc)
+                lexer->result_symbol = INNER_BLOCK_DOC_COMMENT;
+              else if (star_count == 2 && has_content)
+                lexer->result_symbol = BLOCK_DOC_COMMENT;
+              else
+                lexer->result_symbol = BLOCK_COMMENT;
               return true;
             }
           } else {
             advance(lexer);
             after_star = false;
+            has_content = true;
             if (lexer->lookahead == '*') {
               nesting_depth++;
               advance(lexer);
@@ -177,6 +208,7 @@ bool tree_sitter_rust_external_scanner_scan(void *payload, TSLexer *lexer,
         default:
           advance(lexer);
           after_star = false;
+          has_content = true;
           break;
       }
     }

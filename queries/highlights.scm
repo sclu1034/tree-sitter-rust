@@ -107,7 +107,11 @@
 (field_identifier) @property
 
 (line_comment) @comment
+(line_doc_comment) @comment.documentation
+(inner_line_doc_comment) @comment.documentation
 (block_comment) @comment
+(block_doc_comment) @comment.documentation
+(inner_block_doc_comment) @comment.documentation
 
 (attribute_item
     (
