@@ -429,7 +429,6 @@ module.exports = grammar({
 
     function_modifiers: $ => repeat1(choice(
       'async',
-      'default',
       'const',
       'unsafe',
       $.extern_modifier
@@ -1484,7 +1483,6 @@ module.exports = grammar({
     identifier: $ => /(r#)?[_\p{XID_Start}][_\p{XID_Continue}]*/,
 
     _reserved_identifier: $ => alias(choice(
-      'default',
       'union',
     ), $.identifier),
 

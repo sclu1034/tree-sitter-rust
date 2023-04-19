@@ -144,6 +144,8 @@
 (closure_parameters (struct_pattern (field_pattern pattern: (identifier) @variable.parameter)))
 (closure_parameters (struct_pattern (field_pattern (shorthand_field_identifier) @variable.parameter)))
 
+((lifetime (identifier) @label.lifetime.static)
+    (#match? @label.lifetime.static "^'static$"))
 (lifetime (identifier) @label.lifetime)
 
 (self) @variable.builtin.self
@@ -239,13 +241,22 @@
 "," @punctuation.comma
 ";" @punctuation.semicolon
 
+; Special keywords (matched by specific grammar rules)
+(crate) @keyword
+(mutable_specifier) @keyword
+(visibility_modifier) @keyword
+((scoped_identifier
+    name: (identifier) @keyword)
+    (#match? @keyword "^super$"))
+(super) @keyword
+
+; Strict keywords
 "as" @keyword
 "async" @keyword
 "await" @keyword
 "break" @keyword
 "const" @keyword
 "continue" @keyword
-"default" @keyword
 "dyn" @keyword
 "else" @keyword
 "enum" @keyword
@@ -257,7 +268,6 @@
 "in" @keyword
 "let" @keyword
 "loop" @keyword
-"macro_rules!" @keyword
 "match" @keyword
 "mod" @keyword
 "move" @keyword
@@ -268,15 +278,13 @@
 "struct" @keyword
 "trait" @keyword
 "type" @keyword
-"union" @keyword
 "unsafe" @keyword
 "use" @keyword
 "where" @keyword
 "while" @keyword
-(crate) @keyword
-(mutable_specifier) @keyword
-(visibility_modifier) @keyword
-((scoped_identifier
-    name: (identifier) @keyword)
-    (#match? @keyword "^super$"))
-(super) @keyword
+
+; Weak keywords
+; A weak keyword only has its special meaning in certain contexts. So ideally,
+; these should actually be promoted to grammar rules that can match those contexts.
+"macro_rules!" @keyword.weak
+"union" @keyword.weak
