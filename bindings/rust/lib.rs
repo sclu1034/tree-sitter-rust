@@ -49,6 +49,9 @@ pub const GRAMMAR: &str = include_str!("../../grammar.js");
 /// The syntax highlighting query for this language.
 pub const HIGHLIGHT_QUERY: &str = include_str!("../../queries/highlights.scm");
 
+/// The local variables query for this language.
+pub const LOCALS_QUERY: &str = include_str!("../../queries/locals.scm");
+
 /// The symbol tagging query for this language.
 pub const TAGGING_QUERY: &str = include_str!("../../queries/tags.scm");
 

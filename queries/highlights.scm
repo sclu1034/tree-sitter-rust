@@ -1,5 +1,10 @@
 ; Identifier conventions
 
+; Exclude identifiers in macro invocations.
+; Support for anything inside macros is very limited, and prone to produce false positives,
+; so it's actually more consistent to highlight as little as possible.
+(macro_invocation (token_tree (identifier) @macro_token))
+
 ; Assume all-caps names are constants
 ((identifier) @constant
  (#match? @constant "^[A-Z][A-Z\\d_]+$"))
@@ -55,9 +60,6 @@
     (#match? @module "^[a-z]"))
 
 ; Assume other uppercase names are enum constructors
-; Exclude it from macro token trees first, though, since we can't do much in those,
-; and it'd be weird if only this specific rule did work in macros.
-(token_tree (identifier) @variable)
 ((identifier) @constructor
  (#match? @constructor "^[A-Z]"))
 
@@ -152,6 +154,8 @@
 (use_list (self) @variable.builtin.self)
 (scoped_use_list (self) @variable.builtin.self)
 (scoped_identifier (self) @variable.builtin.self)
+
+(identifier) @variable
 
 (char_literal) @string.char
 (string_literal) @string.string
