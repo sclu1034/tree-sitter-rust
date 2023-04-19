@@ -123,6 +123,21 @@
 )
 (inner_attribute_item) @attribute.inner
 
+; Standalone `_` parameter
+(closure_parameters ("|" "_" @variable.parameter.unused "|"))
+
+; Parameters starting with `_`
+((parameter (identifier) @variable.parameter.unused)
+    (#match? @variable.parameter.unused "^_"))
+((closure_parameters (identifier) @variable.parameter.unused)
+    (#match? @variable.parameter.unused "^_"))
+((closure_parameters (tuple_pattern (identifier) @variable.parameter.unused))
+    (#match? @variable.parameter.unused "^_"))
+((closure_parameters (struct_pattern (field_pattern pattern: (identifier) @variable.parameter.unused)))
+    (#match? @variable.parameter.unused "^_"))
+((closure_parameters (struct_pattern (field_pattern (shorthand_field_identifier) @variable.parameter.unused)))
+    (#match? @variable.parameter.unused "^_"))
+
 (parameter (identifier) @variable.parameter)
 (closure_parameters (identifier) @variable.parameter)
 (closure_parameters (tuple_pattern (identifier) @variable.parameter))
