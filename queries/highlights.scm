@@ -276,4 +276,7 @@
 (crate) @keyword
 (mutable_specifier) @keyword
 (visibility_modifier) @keyword
+((scoped_identifier
+    name: (identifier) @keyword)
+    (#match? @keyword "^super$"))
 (super) @keyword
