@@ -178,6 +178,7 @@
 
 (binary_expression "&&" @operator.boolean.double_ampersand)
 (binary_expression "||" @operator.boolean.double_pipe)
+(let_chain "&&" @operator.boolean.double_ampersand)
 (unary_expression "!" @operator.boolean.not)
 
 (try_expression "?" @operator.try)
