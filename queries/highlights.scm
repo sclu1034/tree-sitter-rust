@@ -53,6 +53,8 @@
 (use_wildcard (identifier) @module)
 ((use_wildcard (scoped_identifier (identifier) @module))
     (#match? @module "^[a-z]"))
+; Highlight module definitions
+(mod_item name: (identifier) @module)
 
 ; Assume other uppercase names are enum constructors
 ((identifier) @constructor
