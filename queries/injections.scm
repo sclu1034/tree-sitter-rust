@@ -7,3 +7,9 @@
   (token_tree) @injection.content)
  (#set! injection.language "rust")
  (#set! injection.include-children))
+
+((attribute
+  . (identifier) @_name
+  . (token_tree) @injection.content)
+ (#set! injection.language "rust")
+ (#set! injection.include-children))

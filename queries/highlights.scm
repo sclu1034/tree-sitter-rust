@@ -112,13 +112,24 @@
 
 (attribute_item
     (
-        "#" @attribute.numbersign
-        "[" @attribute.bracket.opening
-        (attribute)+ @attribute.item
-        "]" @attribute.bracket.closing
+        "#" @attribute.punctuation.hash
+        "[" @attribute.punctuation.bracket.opening
+        "]" @attribute.punctuation.bracket.closing
     )
 )
-(inner_attribute_item) @attribute.inner
+(inner_attribute_item
+    (
+        "#" @attribute.punctuation.hash
+        "!" @attribute.punctuation.bang
+        "[" @attribute.punctuation.bracket.opening
+        "]" @attribute.punctuation.bracket.closing
+    )
+)
+
+(attribute . (identifier) @attribute.name . (token_tree))
+(attribute
+    ("=" @attribute.operator.equals)
+    value: _)
 
 ; Standalone `_` parameter
 (closure_parameters ("|" "_" @variable.parameter.unused "|"))
