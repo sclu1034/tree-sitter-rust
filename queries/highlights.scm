@@ -33,7 +33,7 @@
     path: (identifier) @module)
 ; Highlight the module in scoped identifiers with more than two elements
 (scoped_identifier
-    path: (scoped_identifier) @module)
+    path: (scoped_identifier (identifier) @module))
 ; Highlight paths that import a module rather than a type
 ((use_declaration
     argument: (scoped_identifier
