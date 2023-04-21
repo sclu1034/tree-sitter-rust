@@ -1,10 +1,5 @@
 ; Identifier conventions
 
-; Exclude identifiers in macro invocations.
-; Support for anything inside macros is very limited, and prone to produce false positives,
-; so it's actually more consistent to highlight as little as possible.
-(macro_invocation (token_tree (identifier) @macro_token))
-
 ; Assume all-caps names are constants
 ((identifier) @constant
  (#match? @constant "^[A-Z][A-Z\\d_]+$"))
